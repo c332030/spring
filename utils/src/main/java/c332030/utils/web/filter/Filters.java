@@ -1,8 +1,6 @@
 package c332030.utils.web.filter;
 
 import c332030.utils.data.constant.ConstantWeb;
-import c332030.utils.data.redis.RedisUtils;
-import org.springframework.beans.factory.annotation.Autowired;
 
 import javax.servlet.*;
 import javax.servlet.http.HttpServletRequest;
@@ -10,9 +8,6 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
 public abstract class Filters implements Filter {
-
-    @Autowired
-    protected RedisUtils redisUtil;
 
     public Filters() {
         // 构造函数

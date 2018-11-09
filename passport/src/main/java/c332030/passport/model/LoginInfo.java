@@ -3,8 +3,6 @@ package c332030.passport.model;
 import c332030.utils.data.model.abstractclass.CAdapter;
 import c332030.utils.tools.Tools;
 
-import java.util.Date;
-
 /**
  * @ClassName LoginInfo
  * @Description TODO
@@ -15,6 +13,19 @@ import java.util.Date;
 public class LoginInfo extends CAdapter {
 
     private static final long serialVersionUID = 366304798511332389L;
+
+    public static final String SPLIT = "_";
+    public static final String PRE_LOGIN_KEY;
+
+    static {
+        String str = LoginInfo.class.getCanonicalName();
+        PRE_LOGIN_KEY = str.substring(str.lastIndexOf('.') + 1);
+    }
+
+    /**
+     * 日期格式
+     */
+    public static final String DATA_FORMAT = "yyyyMMddHHmm";
 
     /**
      * 登录的用户
@@ -31,7 +42,17 @@ public class LoginInfo extends CAdapter {
      */
     private String loginIp;
     
-    private Date date;
+    private String date;
+
+    @Override
+    public String toString() {
+        return "LoginInfo{" +
+                "user=" + user +
+                ", loginTime='" + loginTime + '\'' +
+                ", loginIp='" + loginIp + '\'' +
+                ", date='" + date + '\'' +
+                '}';
+    }
 
     public LoginInfo() {}
     public LoginInfo(User user) {this.user = user;}
@@ -41,19 +62,40 @@ public class LoginInfo extends CAdapter {
     }
 
     @Override
-    public String toString() {
-        return "LoginInfo{" +
-                "user=" + user +
-                ", loginTime='" + loginTime + '\'' +
-                ", loginIp='" + loginIp + '\'' +
-                ", date=" + date +
-                '}';
+    public boolean isEmpty() {
+        return Tools.isEmpty(user)
+                || Tools.isEmpty(date);
     }
 
-    @Override
-    public boolean isEmpty() {
+    public User getUser() {
+        return user;
+    }
 
-        return Tools.isEmpty(user);
+    public void setUser(User user) {
+        this.user = user;
+    }
 
+    public String getLoginTime() {
+        return loginTime;
+    }
+
+    public void setLoginTime(String loginTime) {
+        this.loginTime = loginTime;
+    }
+
+    public String getLoginIp() {
+        return loginIp;
+    }
+
+    public void setLoginIp(String loginIp) {
+        this.loginIp = loginIp;
+    }
+
+    public String getDate() {
+        return date;
+    }
+
+    public void setDate(String date) {
+        this.date = date;
     }
 }

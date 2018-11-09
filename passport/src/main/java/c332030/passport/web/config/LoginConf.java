@@ -41,7 +41,7 @@ public class LoginConf {
     }
 
     public void load() {
-        confMap = YamlUtils.loadYamlMapClasspath("config/login.yml");
+        confMap = YamlUtils.loadYamlMapClasspath("config/passport.yml");
     }
 
     /**
@@ -49,6 +49,7 @@ public class LoginConf {
      * @param key
      * @return
      */
+    @SuppressWarnings("unchecked")
     public Object get(String key) {
 
         if(Tools.isEmpty(key)) {
@@ -75,6 +76,7 @@ public class LoginConf {
                 if(Tools.isEmpty(map)) {
                     return null;
                 }
+
 
                 map = (Map<String, Object>) map.get(keys[i++]);
             }

@@ -39,10 +39,10 @@ public class LoginController extends LController {
 
         String referer = request.getHeader("Referer");
 
-        LogUtils.debug(this, AuthConstant.Cookies.REFER_URL + ": " + referer);
-        LogUtils.debug(this, AuthConstant.ID + ": " + auth_id);
-        LogUtils.debug(this, AuthConstant.SECRET + ": " + auth_secset);
-        LogUtils.debug(this, AuthConstant.Cookies.RESPONSE_URL + ": " + responseUrl);
+//        LogUtils.debug(this, AuthConstant.Cookies.REFER_URL + ": " + referer);
+//        LogUtils.debug(this, AuthConstant.ID + ": " + auth_id);
+//        LogUtils.debug(this, AuthConstant.SECRET + ": " + auth_secset);
+//        LogUtils.debug(this, AuthConstant.Cookies.RESPONSE_URL + ": " + responseUrl);
 
         if(!Tools.isEmpty(referer)
                 && !Tools.isEmpty(responseUrl)

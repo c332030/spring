@@ -2,6 +2,7 @@ package c332030.passport.controller;
 
 import c332030.passport.spring.Close;
 import c332030.utils.data.constant.ConstantWeb;
+import c332030.utils.tools.LogUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -31,5 +32,13 @@ public class MainController extends LController {
     public String Close() {
         close.start();
         return ConstantWeb.Html.Close;
+    }
+
+    @RequestMapping("FlushRedis")
+    public String flushRedis() {
+
+        lRedisUtils.flushDB();
+        LogUtils.debug(this, "清空所有redis记录");
+        return To();
     }
 }

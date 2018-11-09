@@ -15,7 +15,7 @@
             }
         }
 
-        url = url.substring(0, index);
+        url = url.substring(0, index + 1);
     }
 
     location = url;

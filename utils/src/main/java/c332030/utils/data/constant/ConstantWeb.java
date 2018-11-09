@@ -29,9 +29,10 @@ public class ConstantWeb {
     }
     
     public static class Cookies{
+
         public static final Integer MAX_AGE = 24 * 60 * 60 * 7; // 一周
 
-        public static final String LOGIN_INFO_KEY = "c332030.redis.Login";
+        public static final String LOGIN_INFO_KEY = "loginKey";
     }
 
     // Session Name

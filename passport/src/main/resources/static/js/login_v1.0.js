@@ -19,26 +19,77 @@ console.log("sha256:\n" + sha256v.length + "\n");
 console.log("IDNO:\n" + "".length + "\n");
 */
 
-var loginWarnId = "#loginWarn";
-var loginErrorId = "#loginError";
+var loginAId = "#loginA"; // 登录文字
+var redistryAId = "#registryA"; // 注册文字
 
-var usernameId = "#usernameInput";
-var passwordId = "#passwordInput";
-var submitButId = "#submitBut";
+var usernameId = "#usernameInput"; // 用户名
+var passwordId = "#passwordInput"; // 密码
+var passwordId2 = "#passwordInput2"; // 二次密码
 
-function loginSetInfo(id, info) {
+var passwordDivId2 = "#passwordDiv2"; // 二次密码 Div
 
-    setInfo(id, info);
-    showLoad(false);
-}
+
+var loginWarnId = "#loginWarn"; // 警告 Div
+var loginErrorId = "#loginError"; // 错误 Div
+
+var rememberDivId = "#rememberDiv"; // 记住我 div
+var rememberInputId = "#rememberInput"; // 记住我 input
+
+var submitButId = "#submitBut"; // 按钮
+
+
+var onfocusClass = "a-onfocus";
+// var onblurClass = "a-onblur";
+
+var loginText = "登录";
+var registryText = "注册";
+
 
 $(document).ready(function(){
     $("#loadingDiv").load("common/loading_v1.0.html");
 
     showInfoEx(loginWarnId, false, 0);
     showInfoEx(loginErrorId, false, 0);
+
+    $(passwordDivId2).hide();
 });
 
+/* 输入动作 */
+function onFocus(id) {
+    $(id).addClass(onfocusClass);
+}
+
+function onBlur(id) {
+    $(id).removeClass(onfocusClass);
+}
+
+/* 鼠标事件 */
+$(function () {
+    $(loginAId).focus(function () {
+        onFocus(loginAId);
+        onBlur(redistryAId);
+        $(submitButId).html(loginText);
+        $(rememberDivId).show();
+        $(passwordDivId2).hide();
+    });
+
+    $(redistryAId).focus(function () {
+        onFocus(redistryAId);
+        onBlur(loginAId);
+        $(submitButId).html(registryText);
+        $(rememberDivId).hide();
+        $(passwordDivId2).show();
+    });
+});
+
+/* 设置提示信息 */
+function loginSetInfo(id, info) {
+
+    setInfo(id, info);
+    showLoad(false);
+}
+
+/* 登录逻辑 */
 $(function () {
     $(usernameId).val("c332030");
     $(passwordId).val("余巧玲");
@@ -49,6 +100,10 @@ $(function () {
 
     $(passwordId).blur(function () {
         verifyInput(passwordId);
+    });
+
+    $(passwordId2).blur(function () {
+        verifyInput(passwordId2);
     });
 
     $(submitButId).click(function () {

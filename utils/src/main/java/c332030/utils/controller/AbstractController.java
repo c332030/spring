@@ -1,4 +1,4 @@
-package c332030.utils.spring.controller;
+package c332030.utils.controller;
 
 /**
  * @ClassName AbstractController

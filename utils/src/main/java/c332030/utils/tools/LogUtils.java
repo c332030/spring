@@ -102,21 +102,24 @@ public class LogUtils implements Tool {
         return LogFactory.getLog(Tools.dealNull(clazz, LogUtils.class));
     }
 
-    public static void debug(String debugStr) {
-        debug(null, debugStr);
+    public static void debug(Object obj) {
+        debug(null, obj);
     }
-    public static void debug(Object object, String debugStr) {
+    public static void debug(Object object, Object obj) {
         if(Tools.isEmpty(object)) {
-            debug(debugStr);
+            debug(obj);
         }
 
-        debug(object.getClass(), debugStr);
+        debug(object.getClass(), obj);
     }
-    public static void debug(Class<?> clazz, String debugStr) {
-        Log log = getLog(clazz);
+    public static void debug(Class<?> clazz, Object obj) {
+        if(null == obj) {
+            return;
+        }
 
+        Log log = getLog(clazz);
         if(log.isDebugEnabled()) {
-            log.debug(debugStr);
+            log.debug(obj.toString());
         }
     }
 

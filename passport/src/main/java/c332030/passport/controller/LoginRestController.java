@@ -15,6 +15,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -40,14 +42,17 @@ public class LoginRestController extends LController {
     private static final Message LOGIN_FAILED_MESSAGE =
             new Message(new Status("999999", "登录发生错误，请联系管理员！")).setUnmodify();
 
+    /**
+     * 用户服务
+     */
     @Autowired
     private UserService userService;
 
     @RequestMapping("VerifyLogin")
     public Message verifyLogin(String username, String password) {
 
-        LogUtils.debug(this, "username= " + username);
-        LogUtils.debug(this, "password= " + password);
+//        LogUtils.debug(this, "username= " + username);
+//        LogUtils.debug(this, "password= " + password);
 
         if(Tools.isEmpty(username)
                 || Tools.isEmpty(password)
@@ -87,7 +92,9 @@ public class LoginRestController extends LController {
         }
 
         LoginInfo loginInfo = verifyLoginLoginInfo(user);
-        if(!lRedisUtils.hSet(LoginInfo.class, loginInfo)) {
+
+        if(!lRedisUtils.lHSet(loginInfo)) {
+
             LogUtils.error(this, "登录信息对象存入 redis 失败");
             return LOGIN_FAILED_MESSAGE;
         }
@@ -105,8 +112,14 @@ public class LoginRestController extends LController {
         }
 
         LoginInfo loginInfo = new LoginInfo(DataUtils.getUUID(), user);
+        loginInfo.setDate(new SimpleDateFormat(LoginInfo.DATA_FORMAT).format(new Date()));
 
-        if(!CookieUtils.setLoginKey(response, loginInfo.getKey())) {
+        String loginKey = LoginInfo.PRE_LOGIN_KEY
+                + loginInfo.getDate()
+                + LoginInfo.SPLIT
+                + loginInfo.getKey();
+        if(!CookieUtils.setLoginKey(response, DataUtils.enBase64(loginKey))) {
+
             LogUtils.error(this, "登录信息 key 存入 Cookie 失败！");
             return null;
         }

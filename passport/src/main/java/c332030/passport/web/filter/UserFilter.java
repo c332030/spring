@@ -1,11 +1,12 @@
 package c332030.passport.web.filter;
 
-import c332030.passport.model.LoginInfo;
+import c332030.passport.tools.data.LRedisUtils;
 import c332030.utils.data.constant.ConstantWeb;
 import c332030.utils.tools.LogUtils;
 import c332030.utils.tools.Tools;
 import c332030.utils.tools.web.CookieUtils;
 import c332030.utils.web.filter.Filters;
+import org.springframework.beans.factory.annotation.Autowired;
 
 import javax.servlet.FilterChain;
 import javax.servlet.ServletException;
@@ -18,6 +19,9 @@ import java.io.IOException;
 /*@Component
 @WebFilter(urlPatterns = "/*", filterName = "loginFilter")*/
 public class UserFilter extends Filters {
+
+    @Autowired
+    protected LRedisUtils lRedisUtil;
 
     @Override
     public void doFilter(
@@ -68,20 +72,19 @@ public class UserFilter extends Filters {
             return;
         }
 
-        String userKey = CookieUtils.getLoginKey(httpRequest);
+        String loginKey = CookieUtils.getLoginKey(httpRequest);
 //        LogUtils.print(methodName + userKey);
-        if(Tools.isEmpty(userKey)) {
+        if(Tools.isEmpty(loginKey)) {
 
-            LogUtils.print(methodName + "userKey 为空！");
-
+            LogUtils.debug(this, "loginKey 为空！");
             toLogin(httpRequest, httpResponse);
             return;
         }
 
-        Object obj = redisUtil.hGet(LoginInfo.class, userKey);
+        Object obj = lRedisUtil.lHGet(loginKey);
         if(Tools.isEmpty(obj)) {
 
-            LogUtils.print(methodName + "redis 不存在当前值+ " + userKey);
+            LogUtils.print(methodName + "redis 不存在当前值+ " + loginKey);
 
             toLogin(httpRequest, httpResponse);
             return;

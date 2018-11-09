@@ -1,10 +1,12 @@
 package c332030.utils.data.redis;
 
 import c332030.utils.data.constant.Constant;
-import c332030.utils.data.model.abstractclass.CAdapter;
 import c332030.utils.tools.LogUtils;
 import c332030.utils.tools.Tools;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.DataAccessException;
+import org.springframework.data.redis.connection.RedisConnection;
+import org.springframework.data.redis.core.RedisCallback;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.stereotype.Component;
 
@@ -29,17 +31,28 @@ public class RedisUtils implements Redis {
      * @param second
      * @return
      */
-    public boolean expire(String key, Long second) {
+    public boolean expire(String key, Long second, TimeUnit timeUnit) {
         if(Tools.isEmpty(key)
                 || second <= 0
+                || null == timeUnit
         ) {
             LogUtils.error(this, "key 为空或有效时间不合法！");
             return false;
         }
 
-        redisTemplate.expire(key, second, TimeUnit.SECONDS);
+        redisTemplate.expire(key, second, timeUnit);
 
         return true;
+    }
+
+    /**
+     *
+     * @param key
+     * @param second
+     * @return
+     */
+    public boolean expire(String key, Long second) {
+        return redisTemplate.expire(key, second, TimeUnit.DAYS);
     }
 
     /**
@@ -62,6 +75,7 @@ public class RedisUtils implements Redis {
         }
 
         redisTemplateStr.opsForValue().set(key, value);
+        expire(key, 3L);
         return true;
     }
 
@@ -106,7 +120,7 @@ public class RedisUtils implements Redis {
         }
 
         redisTemplate.opsForHash().put(hashName, hashKey, obj);
-
+        expire(hashName, 3L);
         return true;
     }
 
@@ -132,43 +146,24 @@ public class RedisUtils implements Redis {
         return redisTemplate.opsForHash().get(hashName, hashKey);
     }
 
-    /**
-     * 
-     * @Title: set 
-     * @Description: 存储对象信息到 redis
-     * @author c332030
-     * @time 2018年8月6日 上午9:08:08
-     * @param cls
-     * @param e
-     * @return
-     */
-    public <E extends CAdapter> boolean hSet(Class<E> cls, E e) {
-
-        if(Tools.isEmpty(cls)) {
-            LogUtils.error(this, "存入到 redis 的对象为空！");
-            return false;
-        }
-
-        return hSet(cls.getCanonicalName(), e.getKey(), e);
+    public String flushDB() {
+        return redisTemplate.execute(new RedisCallback<String>() {
+            public String doInRedis(RedisConnection connection) throws DataAccessException {
+                connection.flushDb();
+                return Constant.string.EMPTY_STR;
+            }
+        });
     }
 
     /**
-     * 
-     * @Title: get 
-     * @Description: 设置 Hash
-     * @author c332030
-     * @time 2018年8月6日 上午9:38:29
-     * @param cls
-     * @param key
+     * Redis 大小
      * @return
      */
-    public <E> E hGet(Class<E> cls, String key) {
-
-        if(Tools.isEmpty(cls)) {
-            LogUtils.error(this, "类名为空！");
-            return null;
-        }
-
-        return (E) hGet(cls.getCanonicalName(), key);
+    public Long dbSize() {
+        return redisTemplate.execute(new RedisCallback<Long>() {
+            public Long doInRedis(RedisConnection connection) throws DataAccessException {
+                return connection.dbSize();
+            }
+        });
     }
 }

@@ -10,7 +10,6 @@ import org.springframework.web.bind.annotation.RestController;
  * @Version 1.0
  */
 @RestController
-public class MainRestController {
-
+public class MainRestController extends LController {
 
 }

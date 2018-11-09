@@ -1,13 +1,21 @@
 
+/* 网站标题 */
+#loginTitle {
+    margin: 0 auto; /* 外边距 */
+    padding: 3% 0 1% 5%;
+    color: #EA6F5A;
+    font-size: 44px;
+}
+
 /**
 登录div
  */
 #loginDiv {
 
     width: 400px;
-    margin: 60px auto 0; /* 外边距 */
+    margin: 0 auto; /* 外边距 */
     padding: 50px 50px 30px; /* 内边距 */
-    background-color: #fff; /* 背景颜色 */
+    background-color: #FFF; /* 背景颜色 */
     border-radius: 4px; /* 圆角边框 */
     box-shadow: 0 0 8px rgba(0,0,0,.1); /* 阴影 */
     vertical-align: middle; /* 垂直对其方式 */
@@ -17,9 +25,40 @@
 /*
 登录标题
  */
-#loginTitle {
-    margin: auto auto 30px auto; /* 外边距 */
+#userOpera {
+    margin: auto auto 10% auto; /* 外边距 */
+    padding: 0 20%;
+    display: -webkit-flex; /* 不换行 */
+    display: flex; /* 不换行 */
 }
+
+/* 居中 */
+#userOpera div {
+    margin: auto; /* 外边距 */
+}
+
+/* a 标签下划线 234, 111, 90  */
+#userOpera a {
+
+    text-align: center;
+    font-size: 20px;
+    color: #969696;
+
+    text-decoration: none; /* 不需要下划线 */
+
+    display: block;
+    width: 50px;
+}
+
+.a-onfocus {
+    border-bottom: 2px solid #EA6F5A;
+}
+
+/*.a-onblur {
+    border-bottom: 2px solid #FFF;
+}*/
+
+
 
 /*
 警告信息

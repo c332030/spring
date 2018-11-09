@@ -2,8 +2,10 @@ package c332030.passport.controller;
 
 import c332030.passport.model.LoginInfo;
 import c332030.passport.tools.data.LRedisUtils;
+import c332030.utils.controller.AbstractController;
 import c332030.utils.data.constant.ConstantWeb;
-import c332030.utils.spring.controller.AbstractController;
+import c332030.utils.tools.DataUtils;
+import c332030.utils.tools.LogUtils;
 import c332030.utils.tools.Tools;
 import c332030.utils.tools.web.CookieUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -26,9 +28,26 @@ public abstract class LController extends AbstractController {
      */
     protected boolean isLogin() {
 
-        return !Tools.isEmpty(lRedisUtils.hGet(
-                LoginInfo.class, CookieUtils.getLoginKey(request)
-        ));
+        String loginKey = CookieUtils.getLoginKey(request);
+        if(Tools.isEmpty(loginKey)) {
+            return false;
+        }
+
+        try {
+            loginKey = DataUtils.deBase64(loginKey);
+        } catch (Exception exception) {
+            LogUtils.debug(this, exception);
+            return false;
+        }
+
+        LogUtils.debug(this, "Login key= " + loginKey);
+
+        String[] keys = loginKey.split(LoginInfo.SPLIT);
+        if(keys.length != 2) {
+            return false;
+        }
+
+        return !Tools.isEmpty(lRedisUtils.lHGet(loginKey));
     }
 
     /**

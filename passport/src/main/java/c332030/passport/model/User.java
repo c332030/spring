@@ -7,7 +7,7 @@ public class User implements C {
 
     private static final long serialVersionUID = -6125998326478365880L;
 
-    private Integer id;
+    private Integer userid;
     private String username;
     private String password;
 
@@ -31,7 +31,7 @@ public class User implements C {
     @Override
     public String toString() {
         return "User{" +
-                "id=" + id +
+                "userid=" + userid +
                 ", username='" + username + '\'' +
                 ", password='" + password + '\'' +
                 ", phone='" + phone + '\'' +
@@ -39,12 +39,12 @@ public class User implements C {
                 '}';
     }
 
-    public Integer getId() {
-        return id;
+    public Integer getUserid() {
+        return userid;
     }
 
-    public void setId(Integer id) {
-        this.id = id;
+    public void setUserid(Integer userid) {
+        this.userid = userid;
     }
 
     public String getUsername() {

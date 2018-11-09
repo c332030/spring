@@ -212,7 +212,7 @@ public class CookieUtils implements Tool {
 
         Cookie cookie = getUserCookie(cookies);
 
-        if(Tools.isEmpty(cookies)) {
+        if(Tools.isEmpty(cookie)) {
             return Constant.string.EMPTY_STR;
         }
 
