@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE mapper
+    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="c332030.passport.mapper.UserMapper">
+
+    <select id="verifyUser" parameterType="User" resultType="int">
+        SELECT COUNT(u.USERNAME)
+        FROM L_USER u
+        WHERE u.USERNAME = #{username}
+          AND u.PASSWORD = #{password}
+    </select>
+
+    <select id="findById" parameterType="int" resultType="User">
+        SELECT u.USERID, u.USERNAME
+        FROM L_USER
+        WHERE id = #{id}
+    </select>
+
+    <select id="findUserByName" parameterType="string" resultType="User">
+        SELECT u.USERID, u.USERNAME
+        FROM L_USER
+        WHERE username = #{username}
+    </select>
+
+    <select id="findByUserAndPwd" parameterType="User" resultType="User">
+        SELECT u.USERID, u.USERNAME, u.PHONE, u.EMAIL
+        FROM L_USER u
+        WHERE u.USERNAME = #{username}
+            AND u.PASSWORD = #{password}
+    </select>
+
+    <select id="findByPhoneAndPwd" parameterType="User" resultType="User">
+        SELECT u.USERID, u.USERNAME, u.PHONE, u.EMAIL
+        FROM L_USER u
+        WHERE u.PHONE = #{phone}
+            AND u.PASSWORD = #{password}
+    </select>
+
+    <select id="findByEmailAndPwd" parameterType="User" resultType="User">
+        SELECT u.USERID, u.USERNAME, u.PHONE, u.EMAIL
+        FROM L_USER u
+        WHERE u.EMAIL = #{email}
+            AND u.PASSWORD = #{password}
+    </select>
+
+</mapper>

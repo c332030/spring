@@ -1,0 +1,54 @@
+
+/**
+登录div
+ */
+#loginDiv {
+
+    width: 400px;
+    margin: 60px auto 0; /* 外边距 */
+    padding: 50px 50px 30px; /* 内边距 */
+    background-color: #fff; /* 背景颜色 */
+    border-radius: 4px; /* 圆角边框 */
+    box-shadow: 0 0 8px rgba(0,0,0,.1); /* 阴影 */
+    vertical-align: middle; /* 垂直对其方式 */
+    /*display: inline-block; !* 显示方式 *!*/
+}
+
+/*
+登录标题
+ */
+#loginTitle {
+    margin: auto auto 30px auto; /* 外边距 */
+}
+
+/*
+警告信息
+ */
+/*#loginWarn {
+    display: none;
+}*/
+
+/*
+错误信息
+ */
+/*#loginError {
+    display: none;
+}*/
+
+/*
+登录按钮
+*/
+#submitButDiv{
+    text-align: center;
+}
+
+#submitBut{
+    width: 100px;
+}
+
+/* Media Query */
+@media screen and (max-width: 500px) {
+    body {
+        background: black;
+    }
+}

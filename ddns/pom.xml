@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+
+    <artifactId>ddns</artifactId>
+    <version>0.0.1</version>
+    <packaging>jar</packaging>
+
+    <name>ddns</name>
+    <description>Update Server&#39;s IP Address</description>
+
+    <parent>
+        <groupId>c332030</groupId>
+        <artifactId>spring</artifactId>
+        <version>0.0.1</version>
+    </parent>
+
+    <dependencies>
+        <dependency>
+            <groupId>c332030</groupId>
+            <artifactId>utils</artifactId>
+            <version>0.0.1</version>
+        </dependency>
+    </dependencies>
+
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot-maven-plugin</artifactId>
+                <configuration>
+                    <executable>true</executable>
+                </configuration>
+                <dependencies>
+                    <!-- 热部署 -->
+                    <dependency>
+                        <groupId>org.springframework</groupId>
+                        <artifactId>springloaded</artifactId>
+                        <version>1.2.8.RELEASE</version>
+                    </dependency>
+                </dependencies>
+            </plugin>
+            <plugin>
+                <groupId>org.codehaus.mojo</groupId>
+                <artifactId>exec-maven-plugin</artifactId>
+                <configuration>
+                    <executable>java</executable>
+                    <arguments>
+                        <!-- 前面加系统和 JVM 参数 -->
+                        <!-- 此处自动确定并指定 classpath -->
+                        <argument>-classpath</argument>
+                        <classpath/>
+                        <!-- 程序入口，主类名称 -->
+                        <argument>c332030.ddns.Ddns</argument>
+
+                        <!-- 程序的第一个命令行参数
+                            程序的第二个命令行参数
+                        <argument>arg1</argument>
+                        <argument>arg2</argument>-->
+                    </arguments>
+                </configuration>
+            </plugin>
+        </plugins>
+    </build>
+</project>

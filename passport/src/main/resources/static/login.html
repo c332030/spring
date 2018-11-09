@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>账号中心</title>
+    <meta charset="UTF-8"
+          name="viewport"
+          content="width=device-width, initial-scale=1, shrink-to-fit=no"
+    >
+
+    <link rel="stylesheet"
+          href="css/bootstrap/bootstrap_v4.1.3-min.css"
+          integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO"
+          crossorigin="anonymous"
+    >
+    <link rel="stylesheet" href="css/common/common_v1.0.css">
+    <link rel="stylesheet" href="css/login_v1.0.css">
+
+    <link rel="stylesheet" href="pic/icon/iconfont_v20181101/iconfont.css">
+
+    <link rel="stylesheet" href="css/common/loading_v1.0.css">
+
+    <script type="text/javascript" src="js/jquery/jquery_v3.3.1-min.js"></script>
+
+    <!-- popper.min.js 用于弹窗、提示、下拉菜单 -->
+    <script type="text/javascript"
+            src="js/bootstrap/popper_v4.1.3-min.js"
+            integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49"
+            crossorigin="anonymous"
+    ></script>
+    <script type="text/javascript"
+            src="js/bootstrap/bootstrap_v4.1.3-min.js"
+            integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy"
+            crossorigin="anonymous"
+    ></script>
+
+
+    <script type="text/javascript" src="js/encrypt/base64_v1.0.js"></script>
+    <script type="text/javascript" src="js/encrypt/md5_v1.0.js"></script>
+    <script type="text/javascript" src="js/encrypt/sha256_v1.0.js"></script>
+
+    <script type="text/javascript" src="js/common/loading_v1.0.js"></script>
+    <script type="text/javascript" src="js/common/common_v1.0.js"></script>
+    <script type="text/javascript" src="js/login_v1.0.js"></script>
+</head>
+<body>
+    <div class="container-fluid">
+        <div id="loadingDiv"></div>
+        <div id="top"></div>
+        <div id="loginDiv">
+            <div id="loginTitle"><h2>登录</h2></div>
+            <div class="alert alert-warning" id="loginWarn"></div>
+            <div class="alert alert-danger" id="loginError"></div>
+            <div class="form-group input-group" id="usernameDiv">
+                <div class="input-group-prepend">
+                    <i class="input-group-text icon iconfont icon-icon_zhanghao"></i>
+                </div>
+                <input type="text" class="form-control" id="usernameInput"
+                       placeholder="请输入用户名/手机号/邮箱"
+                       spellcheck = "false"
+                >
+            </div>
+            <div class="form-group input-group" id="password-div">
+                <div class="input-group-prepend">
+                    <i class="input-group-text icon iconfont icon-miwen"></i>
+                </div>
+                <input type="password" class="form-control" id="passwordInput"
+                       placeholder="请输入密码"
+                >
+            </div>
+            <div class="form-check">
+                <label class="form-check-label">
+                    <input class="form-check-input" type="checkbox">记住我
+                </label>
+            </div>
+            <div id="submitButDiv">
+                <br>
+                <button type="submit" class="btn btn-primary" id="submitBut">登录</button>
+            </div>
+        </div>
+        <div id="end"></div>
+    </div>
+</body>
+</html>

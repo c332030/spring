@@ -1,0 +1,23 @@
+
+logging:
+    file: ./log/utils.log
+
+mail:
+    smtp:
+        auth: true;
+
+spring:
+    mail:
+#        host: smtp.163.com
+#        username: c332030@163.com
+#        password: c88714480
+        host: smtp.qq.com
+        username: admin@c332030.com
+        password: mzribfixaikighjg
+        properties:
+            mail:
+                smtp:
+                    auth: true
+                    starttls:
+                        enable: true
+                        required: true

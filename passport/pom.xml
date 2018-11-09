@@ -1,0 +1,177 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+
+    <artifactId>passport</artifactId>
+    <version>0.0.1</version>
+    <packaging>jar</packaging>
+
+    <name>passport</name>
+    <description>SSO</description>
+
+    <parent>
+        <groupId>c332030</groupId>
+        <artifactId>spring</artifactId>
+        <version>0.0.1</version>
+    </parent>
+
+    <properties>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
+        <java.version>1.8</java.version>
+    </properties>
+
+    <dependencies>
+        <dependency>
+            <groupId>c332030</groupId>
+            <artifactId>utils</artifactId>
+            <version>0.0.1</version>
+        </dependency>
+
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-web</artifactId>
+        </dependency>
+
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-freemarker</artifactId>
+        </dependency>
+
+
+
+
+        <!-- alibaba的druid数据库连接池
+    https://github.com/alibaba/druid/tree/master/druid-spring-boot-starter
+-->
+        <dependency>
+            <groupId>com.alibaba</groupId>
+            <artifactId>druid-spring-boot-starter</artifactId>
+            <version>1.1.10</version>
+        </dependency>
+
+        <!-- https://mvnrepository.com/artifact/dom4j/dom4j -->
+        <dependency>
+            <groupId>dom4j</groupId>
+            <artifactId>dom4j</artifactId>
+            <version>1.6.1</version>
+        </dependency>
+
+        <!--        <dependency>
+                    <groupId>org.springframework.boot</groupId>
+                    <artifactId>spring-boot-starter-jdbc</artifactId>
+                </dependency>-->
+
+        <dependency>
+            <groupId>mysql</groupId>
+            <artifactId>mysql-connector-java</artifactId>
+        </dependency>
+
+        <!--        <dependency>
+                    <groupId>com.oracle.jdbc</groupId>
+                    <artifactId>ojdbc8</artifactId>
+                    <version>12.2.0.1</version>
+                </dependency>-->
+
+        <!-- MyBatis
+            http://www.mybatis.org/spring-boot-starter/mybatis-spring-boot-autoconfigure/
+        -->
+        <dependency>
+            <groupId>org.mybatis.spring.boot</groupId>
+            <artifactId>mybatis-spring-boot-starter</artifactId>
+            <version>1.3.2</version>
+        </dependency>
+
+        <!--mapper-->
+        <!--       <dependency>
+                   <groupId>tk.mybatis</groupId>
+                   <artifactId>mapper-spring-boot-starter</artifactId>
+                   <version>1.2.4</version>
+               </dependency>-->
+
+        <!-- 和 tk.mybatis 一块使用 -->
+        <!--        <dependency>
+                    <groupId>org.mybatis.generator</groupId>
+                    <artifactId>mybatis-generator-core</artifactId>
+                    <version>1.3.7</version>
+                </dependency>-->
+
+        <!-- MyBatis actable 生成数据库表 -->
+        <!--        <dependency>
+                    <groupId>com.gitee.sunchenbin.mybatis.actable</groupId>
+                    <artifactId>mybatis-enhance-actable</artifactId>
+                    <version>1.0.4</version>
+                </dependency>-->
+
+        <!-- pagehelper 分页插件
+        https://github.com/pagehelper/Mybatis-PageHelper
+        -->
+        <!--        <dependency>
+                    <groupId>com.github.pagehelper</groupId>
+                    <artifactId>pagehelper-spring-boot-starter</artifactId>
+                    <version>1.2.5</version>
+                </dependency>-->
+    </dependencies>
+
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot-maven-plugin</artifactId>
+                <configuration>
+                    <executable>true</executable>
+                </configuration>
+                <dependencies>
+                    <!-- 热部署 -->
+                    <dependency>
+                        <groupId>org.springframework</groupId>
+                        <artifactId>springloaded</artifactId>
+                        <version>1.2.8.RELEASE</version>
+                    </dependency>
+                </dependencies>
+            </plugin>
+
+            <plugin>
+                <groupId>org.codehaus.mojo</groupId>
+                <artifactId>exec-maven-plugin</artifactId>
+                <configuration>
+                    <executable>java</executable>
+                    <arguments>
+                        <!-- 前面加系统和 JVM 参数 -->
+                        <!-- 此处自动确定并指定 classpath -->
+                        <argument>-classpath</argument>
+                        <classpath/>
+
+                        <!-- 程序入口，主类名称 -->
+                        <argument>c332030.utils.Utils</argument>
+
+
+                        <!-- 详细的 GC 信息 -->
+                        <argument>-XX:+PrintGCDetails</argument>
+
+                        <!--  输出GC的时间戳（以基准时间的形式） -->
+                        <argument>-XX:+PrintGCTimeStamps</argument>
+
+                        <!-- 在进行GC的前后打印出堆的信息 -->
+                        <argument>-XX:+PrintHeapAtGC</argument>
+
+                        <!-- 日志路径 -->
+                        <argument>-Xloggc:./log/gc.log</argument>
+                    </arguments>
+                </configuration>
+            </plugin>
+
+            <!--            <plugin>
+                            <groupId>org.mybatis.generator</groupId>
+                            <artifactId>mybatis-generator-maven-plugin</artifactId>
+                            <configuration>
+                                &lt;!&ndash;<configurationFile>${basedir}/src/main/resources/mybatis/generatorConfig.xml</configurationFile>&ndash;&gt;
+                                <configurationFile>classpath:config/mybatis/generatorConfig.xml</configurationFile>
+                                <overwrite>true</overwrite>
+                                <verbose>true</verbose>
+                            </configuration>
+                        </plugin>-->
+        </plugins>
+    </build>
+</project>
