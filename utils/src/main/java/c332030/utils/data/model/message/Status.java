@@ -18,8 +18,16 @@ public class Status extends CUnmodify<Status> {
      */
     public static final String SUCCESS_FLG = "000000";
 
+    /**
+     * 失败标识
+     */
+    public static final String FAILED_FLG = "999999";
+
     public static final Status SUCCESS_STATUS =
-            new Status("000000", "操作成功！").setUnmodify();
+            new Status(SUCCESS_FLG, "操作成功！").setUnmodify();
+
+    public static final Status FAILED_STATUS =
+            new Status(FAILED_FLG, "操作失败！").setUnmodify();
 
     private String retCode;
     private String retMsg;

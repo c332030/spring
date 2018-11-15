@@ -1,6 +1,6 @@
 package c332030.passport.model;
 
-import c332030.utils.data.model.abstractclass.CAdapter;
+import c332030.utils.data.model.abstractclass.CKey;
 import c332030.utils.tools.Tools;
 
 /**
@@ -10,7 +10,7 @@ import c332030.utils.tools.Tools;
  * @Date 2018/10/26 15:08
  * @Version 1.0
  */
-public class LoginInfo extends CAdapter {
+public class LoginInfo extends CKey {
 
     private static final long serialVersionUID = 366304798511332389L;
 

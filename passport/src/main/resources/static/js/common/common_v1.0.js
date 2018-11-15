@@ -1,4 +1,5 @@
 
+var base64 = new Base64();
 
 $(document).ready(function(){
     $('#top').load("common/top_v1.0.html");
@@ -134,6 +135,30 @@ function setInfo(selector, info) {
 
     $(selector).html(info);
     return showInfo(selector, true);
+}
+
+/**
+ * 是否为无效的json格式
+ * @param data
+ */
+function isCommFailed(data) {
+
+    if(null == data) {
+        // console.log("data 为空！");
+        return true;
+    }
+
+    if(null == data.head) {
+        // console.log("data.head 为空！");
+        return true;
+    }
+
+    if(null == data.head.status) {
+        // console.log("data.head 为空！");
+        return true;
+    }
+
+    return false;
 }
 
 /*

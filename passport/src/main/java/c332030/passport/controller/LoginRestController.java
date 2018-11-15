@@ -2,7 +2,9 @@ package c332030.passport.controller;
 
 import c332030.passport.model.LoginInfo;
 import c332030.passport.model.User;
+import c332030.passport.model.VerifyCode;
 import c332030.passport.service.UserService;
+import c332030.passport.tools.data.constant.AuthConstant;
 import c332030.utils.comm.email.EmailUtils;
 import c332030.utils.comm.phone.PhoneUtils;
 import c332030.utils.data.model.message.Message;
@@ -33,14 +35,8 @@ public class LoginRestController extends LController {
     /**
      * 用户名密码错误信息
      */
-    private static final Message USERPWD_ERROR_MESSAGE =
+    public static final Message USERPWD_ERROR_MESSAGE =
             new Message(new Status("999999", "请检查用户名密码！")).setUnmodify();
-
-    /**
-     * 登录发生错误
-     */
-    private static final Message LOGIN_FAILED_MESSAGE =
-            new Message(new Status("999999", "登录发生错误，请联系管理员！")).setUnmodify();
 
     /**
      * 用户服务
@@ -67,7 +63,7 @@ public class LoginRestController extends LController {
             password = DataUtils.deBase64(password);
         } catch (Exception e) {
             e.printStackTrace();
-            return LOGIN_FAILED_MESSAGE;
+            return Message.FAILED_MESSAGE;
         }
 
         User user;
@@ -96,7 +92,7 @@ public class LoginRestController extends LController {
         if(!lRedisUtils.lHSet(loginInfo)) {
 
             LogUtils.error(this, "登录信息对象存入 redis 失败");
-            return LOGIN_FAILED_MESSAGE;
+            return Message.FAILED_MESSAGE;
         }
 
         return verifyLoginMessage();
@@ -139,6 +135,57 @@ public class LoginRestController extends LController {
         bodyMap.put("password", "余巧玲");
         bodyMap.put("url", "https://www.c332030.com");
 
-        return new Message(Status.SUCCESS_STATUS, bodyMap);
+        Message message = Message.SUCCESS_MESSAGE.clone();
+        message.setBody(bodyMap);
+        return message;
+    }
+
+    @RequestMapping("Registry")
+    public Message registry(
+            String username, String password, String code
+    ) {
+        if(Tools.isEmpty(username)
+                || Tools.isEmpty(password)
+                || Tools.isEmpty(code)
+            ) {
+            return Message.FAILED_MESSAGE;
+        }
+
+        username = DataUtils.deBase64(username);
+        password = DataUtils.deBase64(password);
+        code = DataUtils.deBase64(code);
+
+        VerifyCode verifyCode = (VerifyCode) session.getAttribute(
+                AuthConstant.Session.VERIFY_CODE);
+        if(Tools.isEmpty(verifyCode)) {
+            LogUtils.debug(this, "验证码为空！");
+            return CommonRestController.ERROR_CODE;
+        }
+
+        if(!username.equals(verifyCode.getUsername())
+                || !code.equals(verifyCode.getCode())
+            ) {
+            LogUtils.debug(this, "验证码校验失败！");
+            return CommonRestController.ERROR_CODE;
+        }
+
+        User user = new User();
+        if(PhoneUtils.isPhone(username)) {
+            user.setPhone(username);
+        } else if(EmailUtils.isEmail(username)) {
+            user.setEmail(username);
+        } else {
+            user.setUsername(username);
+        }
+
+        user.setPassword(password);
+
+        if(!userService.insert(user)) {
+            LogUtils.debug(this, "插入失败！");
+            return Message.FAILED_MESSAGE;
+        }
+
+        LogUtils.debug(this, "注册");
+        return Message.SUCCESS_MESSAGE;
     }
 }

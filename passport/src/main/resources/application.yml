@@ -42,6 +42,7 @@ spring:
         #        driver-class-name: oracle.jdbc.OracleDriver
         driver-class-name: com.mysql.jdbc.Driver
 
+
         #        stat sql监控
         #        wall 防火墙监控
         #        log4j 日志监控

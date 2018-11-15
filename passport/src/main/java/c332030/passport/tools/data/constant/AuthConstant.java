@@ -25,6 +25,11 @@ public class AuthConstant {
      */
     public static final String URL = "url";
 
+    /**
+     * @Description Cookies 常量
+     * @author c332030
+     * @date 2018/11/15 9:33
+     */
     public static class Cookies {
 
         /**
@@ -36,5 +41,14 @@ public class AuthConstant {
          * 响应 URL
          */
         public static final String RESPONSE_URL = "responseUrl";
+    }
+
+    /**
+     * @Description Session 常量
+     * @author c332030
+     * @date 2018/11/15 9:34
+     */
+    public static class Session {
+        public static final String VERIFY_CODE = "verifyCode";
     }
 }

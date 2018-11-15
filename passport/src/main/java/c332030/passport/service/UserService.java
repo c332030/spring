@@ -76,4 +76,18 @@ public class UserService implements Services {
 
         return userMapper.findByEmailAndPwd(user);
     }
+
+    /**
+     * 插入用户
+     * @author c332030
+     * @date 2018/11/15
+     * @version 1.0
+     */
+    public boolean insert(User user) {
+        if(Tools.isEmpty(user)) {
+            return false;
+        }
+
+        return userMapper.insert(user) > 0;
+    }
 }

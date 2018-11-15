@@ -50,15 +50,9 @@
     width: 50px;
 }
 
-.a-onfocus {
-    border-bottom: 2px solid #EA6F5A;
-}
-
 /*.a-onblur {
     border-bottom: 2px solid #FFF;
 }*/
-
-
 
 /*
 警告信息
@@ -83,11 +77,4 @@
 
 #submitBut{
     width: 100px;
-}
-
-/* Media Query */
-@media screen and (max-width: 500px) {
-    body {
-        background: black;
-    }
 }

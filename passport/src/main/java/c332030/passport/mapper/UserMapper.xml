@@ -7,43 +7,47 @@
 <mapper namespace="c332030.passport.mapper.UserMapper">
 
     <select id="verifyUser" parameterType="User" resultType="int">
-        SELECT COUNT(u.USERNAME)
+        SELECT COUNT(u.USERID)
         FROM L_USER u
         WHERE u.USERNAME = #{username}
           AND u.PASSWORD = #{password}
     </select>
 
     <select id="findById" parameterType="int" resultType="User">
-        SELECT u.USERID, u.USERNAME
+        SELECT u.USERID, u.USERNAME, U.NAME, u.PHONE, u.EMAIL, u.IDTP, u.IDNO, u.TYPE
         FROM L_USER
         WHERE id = #{id}
     </select>
 
     <select id="findUserByName" parameterType="string" resultType="User">
-        SELECT u.USERID, u.USERNAME
+        SELECT u.USERID, u.USERNAME, U.NAME, u.PHONE, u.EMAIL, u.IDTP, u.IDNO, u.TYPE
         FROM L_USER
         WHERE username = #{username}
     </select>
 
     <select id="findByUserAndPwd" parameterType="User" resultType="User">
-        SELECT u.USERID, u.USERNAME, u.PHONE, u.EMAIL
+        SELECT u.USERID, u.USERNAME, U.NAME, u.PHONE, u.EMAIL, u.IDTP, u.IDNO, u.TYPE
         FROM L_USER u
         WHERE u.USERNAME = #{username}
             AND u.PASSWORD = #{password}
     </select>
 
     <select id="findByPhoneAndPwd" parameterType="User" resultType="User">
-        SELECT u.USERID, u.USERNAME, u.PHONE, u.EMAIL
+        SELECT u.USERID, u.USERNAME, U.NAME, u.PHONE, u.EMAIL, u.IDTP, u.IDNO, u.TYPE
         FROM L_USER u
         WHERE u.PHONE = #{phone}
             AND u.PASSWORD = #{password}
     </select>
 
     <select id="findByEmailAndPwd" parameterType="User" resultType="User">
-        SELECT u.USERID, u.USERNAME, u.PHONE, u.EMAIL
+        SELECT u.USERID, u.USERNAME, U.NAME, u.PHONE, u.EMAIL, u.IDTP, u.IDNO, u.TYPE
         FROM L_USER u
         WHERE u.EMAIL = #{email}
             AND u.PASSWORD = #{password}
     </select>
 
+    <insert id="insert" parameterType="User">
+        INSERT INTO L_USER(NAME, USERNAME, PASSWORD, IDTP, IDNO, PHONE, EMAIL, TYPE)
+        values(#{name}, #{username}, #{password}, #{idtp}, #{idno}, #{phone}, #{email}, #{type});
+    </insert>
 </mapper>

@@ -5,7 +5,7 @@ import c332030.utils.data.model.interfaces.C;
 /**
  * C 适配器，添加 key 属性
  */
-public abstract class CAdapter implements C {
+public abstract class CKey implements C {
 
     private String key;
 
